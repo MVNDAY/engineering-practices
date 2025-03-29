@@ -1,0 +1,20 @@
+{
+  "name": "engineering-practices",
+  "version": "1.0.0",
+  "description": "A project to demonstrate some of the basic engineering practices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MVNDAY/Engineering-Practices.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MVNDAY/Engineering-Practices/issues"
+  },
+  "homepage": "https://github.com/MVNDAY/Engineering-Practices#readme"
+}
