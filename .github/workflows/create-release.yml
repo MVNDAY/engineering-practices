@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write  # Required for creating releases and updating tags
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -16,8 +19,9 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18.x  # Use the latest patch version of Node.js 18
           cache: npm
+          cache-dependency-path: package-lock.json  # Cache tied to package-lock.json
 
       - name: Install dependencies
         run: npm ci

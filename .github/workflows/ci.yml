@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main"]  # Trigger on pushes to main (e.g., PR merges)
   pull_request:
-    branches: ["main"]
+    branches: ["main"]  # Trigger on PRs targeting main
 
 jobs:
   pr-lint:
@@ -27,18 +27,20 @@ jobs:
             test
 
   code-ql:
+    if: github.event_name != 'push' || github.ref != 'refs/heads/main'  # Skip on PR merges
     uses: ./.github/workflows/codeql.yml  # Calls the code quality scan workflow
     with:
       github-token: ${{ github.token }}
 
   code-lint:
+    if: github.event_name != 'push' || github.ref != 'refs/heads/main'  # Skip on PR merges
     uses: ./.github/workflows/code-lint.yml  # Calls the code linting workflow
     with:
       github-token: ${{ github.token }}
   pr-label:
     name: Label PR
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request'  # Only runs on PRs
     steps:
       - name: Apply labels
         uses: actions/labeler@v4
