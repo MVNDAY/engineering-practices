@@ -1,0 +1,11 @@
+frontend:
+  - src/**
+
+infra:
+  - infra/**
+
+docs:
+  - docs/**
+
+ci:
+  - .github/workflows/**

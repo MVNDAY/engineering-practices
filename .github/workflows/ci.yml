@@ -35,3 +35,13 @@ jobs:
     uses: ./.github/workflows/code-lint.yml  # Calls the code linting workflow
     with:
       github-token: ${{ github.token }}
+  pr-label:
+    name: Label PR
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Apply labels
+        uses: actions/labeler@v4
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/workflows/labeler.yml
