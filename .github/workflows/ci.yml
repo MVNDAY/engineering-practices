@@ -1,0 +1,14 @@
+
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  code-ql:
+    uses: ./.github/workflows/codeql.yml  # Calls the code quality scan workflow
+    with:
+      codeql-token: ${{ github.token }}
