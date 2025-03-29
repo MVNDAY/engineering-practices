@@ -7,7 +7,7 @@ permissions:
 on:
   workflow_call:
     inputs:
-      codeql-token:
+      github-token:
         required: true
         type: string
 

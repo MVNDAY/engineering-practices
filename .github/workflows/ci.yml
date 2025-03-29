@@ -1,4 +1,3 @@
-
 name: CI/CD Pipeline
 
 on:
@@ -8,7 +7,25 @@ on:
     branches: ["main"]
 
 jobs:
+  pr-lint:
+    name: PR Title & Commit Linter
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'  # Only runs on PRs
+    steps:
+      - name: Lint PR Title & Commits
+        uses: amannn/action-semantic-pull-request@v4.5.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          validateSingleCommit: true
+          validateSingleCommitMatchesPrTitle: true
+
   code-ql:
     uses: ./.github/workflows/codeql.yml  # Calls the code quality scan workflow
     with:
-      codeql-token: ${{ github.token }}
+      github-token: ${{ github.token }}
+
+  code-lint:
+    uses: ./.github/workflows/code-lint.yml  # Calls the code linting workflow
+    with:
+      github-token: ${{ github.token }}
