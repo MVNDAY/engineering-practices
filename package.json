@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/MVNDAY/Engineering-Practices/issues"
   },
+  "release": {
+    "branches": ["main"]
+  },
   "homepage": "https://github.com/MVNDAY/Engineering-Practices#readme"
 }
