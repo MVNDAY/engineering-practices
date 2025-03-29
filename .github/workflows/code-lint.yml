@@ -18,12 +18,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with :
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Super-Linter
         uses: super-linter/super-linter@v7.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LINTER_RULES_PATH: /
-          JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.js
           VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_TYPESCRIPT_ES: true
           VALIDATE_JSX: true
