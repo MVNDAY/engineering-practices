@@ -1,0 +1,47 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  pr-lint:
+    name: pr-lint
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'  # Only runs on PRs
+    steps:
+      - name: Lint PR Title & Commits
+        uses: amannn/action-semantic-pull-request@v4.5.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          types: |
+            fix
+            feat
+            chore
+            docs
+            style
+            refactor
+            test
+
+  code-ql:
+    uses: ./.github/workflows/codeql.yml  # Calls the code quality scan workflow
+    with:
+      github-token: ${{ github.token }}
+
+  code-lint:
+    uses: ./.github/workflows/code-lint.yml  # Calls the code linting workflow
+    with:
+      github-token: ${{ github.token }}
+  pr-label:
+    name: Label PR
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Apply labels
+        uses: actions/labeler@v4
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          configuration-path: .github/workflows/labeler.yml
