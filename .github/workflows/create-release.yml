@@ -1,31 +1,15 @@
-name: Semantic Release
+name: Release Please
 
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: write  # Required for creating releases and updating tags
-
 jobs:
   release:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - uses: google-github-actions/release-please-action@v4
         with:
-          node-version: 18.x  # Use the latest patch version of Node.js 18
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Semantic Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+          release-type: node
+          package-name: my-package
